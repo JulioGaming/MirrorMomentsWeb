@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="index.css">
 </head>
 <body>
+    <button onclick="enviarMensaje()">Enviar Mensaje</button>
     <div class="container">
         <h1>Términos y Condiciones Generales de Uso para la Aplicación Android</h1>
         
@@ -38,5 +39,27 @@
         
         <p class="disclaimer">Al utilizar la Aplicación, aceptas estar legalmente vinculado por estos Términos y Condiciones Generales de Uso. Si no estás de acuerdo con estos términos, por favor, abstente de utilizar la Aplicación.</p>
     </div>
+    <script type="text/javascript">
+        function enviarMensaje() {
+            var userAgent = navigator.userAgent.toLowerCase();
+            var isAndroid = userAgent.indexOf("android") > -1;
+            var isIOS = /iphone|ipad|ipod/.test(userAgent);
+            if (isAndroid) {
+                // Enviar mensaje a Android
+                try {
+                    Android.showToast(message);
+                } catch(err) {
+                    console.log('Error sending to Android: ', err);
+                }
+            } else if (isIOS) {
+                // Enviar mensaje a iOS
+                try {
+                    window.webkit.messageHandlers.callbackHandler.postMessage(message);
+                } catch(err) {
+                    console.log('Error sending to iOS: ', err);
+                }
+            }
+        }
+    </script>
 </body>
 </html>
