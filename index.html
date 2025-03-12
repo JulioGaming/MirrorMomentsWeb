@@ -63,6 +63,15 @@
         function modificarTitulo(nuevoTitulo) {
             document.querySelector('h1').textContent = nuevoTitulo;
         }
+        function sendMessageToNativeApp(message) {
+            if(window.isIOS) {
+                windows.location.href = `mycustomscheme://message?text=${encodeURIComponent(message)}`;
+            } else if (window.isAndroid) {
+                Android.sendMessage(message);
+            } else {
+                console.log("Plataforma no soportada")
+            }
+        }
     </script>
 </body>
 </html>
