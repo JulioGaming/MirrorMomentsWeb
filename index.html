@@ -12,7 +12,7 @@
         
         <h2>Aceptación de los Términos</h2>
         <p>Al utilizar la Aplicación, aceptas automáticamente estos Términos y te comprometes a cumplir con todas las disposiciones contenidas en ellos. Si no estás de acuerdo con alguno de los términos establecidos aquí, te rogamos que no utilices la Aplicación.</p>
-        
+        <a href="myapp://doSomething">Do Something in App</a>
         <button onclick="sendMessageToNativeApp()">Enviar Mensaje</button>
         <h2>Funcionalidades de la Aplicación</h2>
         <ul>
@@ -54,11 +54,12 @@
             } else if (isIOS) {
                 // Enviar mensaje a iOS
                 callNativeApp()
-                /*try {
-                    window.webkit.messageHandlers.callbackHandler.postMessage("message");
+                try {
+                    window.webkit.messageHandlers.iosListener.postMessage("message");
+                    
                 } catch(err) {
                     console.log('Error sending to iOS: ', err);
-                }*/
+                }
             }
         }
         function modificarTitulo(nuevoTitulo) {
@@ -69,7 +70,8 @@
         }
         function sendMessageToNativeApp(message) {
             if(window.isIOS) {
-                windows.location.href = `mycustomscheme://message?text=${encodeURIComponent(message)}`;
+                window.location.href = 'myapp://anotherAction';
+                //windows.location.href = `myapp://message?text=${encodeURIComponent(message)}`;
             } else if (window.isAndroid) {
                 Android.sendMessage(message);
             } else {
