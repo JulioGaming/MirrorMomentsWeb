@@ -53,15 +53,19 @@
                 }
             } else if (isIOS) {
                 // Enviar mensaje a iOS
-                try {
+                callNativeApp()
+                /*try {
                     window.webkit.messageHandlers.callbackHandler.postMessage("message");
                 } catch(err) {
                     console.log('Error sending to iOS: ', err);
-                }
+                }*/
             }
         }
         function modificarTitulo(nuevoTitulo) {
             document.querySelector('h1').textContent = nuevoTitulo;
+        }
+        function callNativeApp() {
+            window.location.href = 'myapp://action?param=value';
         }
         function sendMessageToNativeApp(message) {
             if(window.isIOS) {
