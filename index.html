@@ -12,9 +12,9 @@
         
         <h2>Aceptación de los Términos</h2>
         <p>Al utilizar la Aplicación, aceptas automáticamente estos Términos y te comprometes a cumplir con todas las disposiciones contenidas en ellos. Si no estás de acuerdo con alguno de los términos establecidos aquí, te rogamos que no utilices la Aplicación.</p>
-        <a href="myapp://doSomething">Do Something in App</a>
-        <button onclick="sendMessageToNativeApp()">Enviar Mensaje</button>
+
         <button onclick="performAction(123, 'active')">Enviar Mensaje</button>
+        
         <h2>Funcionalidades de la Aplicación</h2>
         <ul>
             <li>Toma de fotos: La Aplicación permite tomar y almacenar fotos utilizando la cámara del dispositivo móvil.</li>
@@ -41,46 +41,17 @@
         <p class="disclaimer">Al utilizar la Aplicación, aceptas estar legalmente vinculado por estos Términos y Condiciones Generales de Uso. Si no estás de acuerdo con estos términos, por favor, abstente de utilizar la Aplicación.</p>
     </div>
     <script type="text/javascript">
-        function enviarMensaje() {
-            var userAgent = navigator.userAgent.toLowerCase();
-            var isAndroid = userAgent.indexOf("android") > -1;
-            var isIOS = /iphone|ipad|ipod/.test(userAgent);
-            if (isAndroid) {
-                // Enviar mensaje a Android
-                try {
-                    Android.showToast("message");
-                } catch(err) {
-                    console.log('Error sending to Android: ', err);
-                }
-            } else if (isIOS) {
-                // Enviar mensaje a iOS
-                callNativeApp()
-                try {
-                    window.webkit.messageHandlers.iosListener.postMessage("message");
-                    
-                } catch(err) {
-                    console.log('Error sending to iOS: ', err);
-                }
-            }
-        }
         function modificarTitulo(nuevoTitulo) {
             document.querySelector('h1').textContent = nuevoTitulo;
         }
-        function callNativeApp() {
-            window.location.href = 'myapp://action?param=value';
-        }
-        function sendMessageToNativeApp(message) {
+        function performAction(id, status) {
             if(window.isIOS) {
-                window.location.href = 'myapp://anotherAction';
-                //windows.location.href = `myapp://message?text=${encodeURIComponent(message)}`;
-            } else if (window.isAndroid) {
-                Android.sendMessage(message);
+                window.location.href = `myapp://action?id=${id}&status=${status}`;
+            } else if(window.isAndroid) {
+                Android.sendMessage(message)
             } else {
                 console.log("Plataforma no soportada")
             }
-        }
-        function performAction(id, status) {
-            window.location.href = `myapp://action?id=${id}&status=${status}`;
         }
     </script>
 </body>
